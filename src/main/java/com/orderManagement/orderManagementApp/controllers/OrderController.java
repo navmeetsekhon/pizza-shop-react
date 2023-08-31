@@ -1,13 +1,23 @@
 package com.orderManagement.orderManagementApp.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.orderManagement.orderManagementApp.model.Order;
+import com.orderManagement.orderManagementApp.services.NewOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    @RequestMapping("/allOrders")
+
+    @Autowired
+    NewOrderService newOrderService;
+    @GetMapping("/allOrders")
     public String getAllOrders(){
         return "Hello world";
+    }
+
+    @PostMapping("newOrder")
+    public String placeOrder(@RequestBody Order order){
+        return newOrderService.newOrder(order);
     }
 }
