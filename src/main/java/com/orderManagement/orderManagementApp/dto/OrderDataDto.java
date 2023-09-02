@@ -14,13 +14,4 @@ public class OrderDataDto {
     private int tableId;
     private int[] itemId;
     private int[] quantity;
-
-    public float calculateTotal(OrderDataDto orderDataDto,MenuDao menuDao){
-        float total=0;
-        for (int i=0;i<orderDataDto.getItemId().length;i++){
-            MenuItem menuItem=menuDao.findByItemId(itemId[i]);
-            total= total+((orderDataDto.itemId[i]*orderDataDto.quantity[i])*menuItem.getItemPrice());
-        }
-        return total;
-    }
 }
