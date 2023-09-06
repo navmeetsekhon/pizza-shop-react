@@ -17,8 +17,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
     private int tableId;
-    @Column(name="order_date",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date orderDate;
     private float totalAmount;
 
     public Order(int tableId,float totalAmount){

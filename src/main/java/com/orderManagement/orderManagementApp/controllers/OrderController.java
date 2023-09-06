@@ -6,6 +6,8 @@ import com.orderManagement.orderManagementApp.services.NewOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -13,8 +15,8 @@ public class OrderController {
     @Autowired
     NewOrderService newOrderService;
     @GetMapping("/allOrders")
-    public String getAllOrders(){
-        return "Hello world";
+    public List<Order> getAllOrders(){
+        return newOrderService.getAllOrders();
     }
 
     @PostMapping("newOrder")

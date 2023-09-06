@@ -45,4 +45,9 @@ public class NewOrderService {
         }
         return total;
     }
+
+    public List<Order> getAllOrders() {
+        return orderDao.findAll();
+
+    }
 }
