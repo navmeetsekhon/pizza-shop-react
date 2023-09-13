@@ -3,6 +3,7 @@ package com.orderManagement.orderManagementApp.services;
 import com.orderManagement.orderManagementApp.dao.MenuDao;
 import com.orderManagement.orderManagementApp.dao.OrderDao;
 import com.orderManagement.orderManagementApp.dao.OrderDescriptionDao;
+import com.orderManagement.orderManagementApp.dto.BillDto;
 import com.orderManagement.orderManagementApp.dto.OrderDataDto;
 import com.orderManagement.orderManagementApp.model.MenuItem;
 import com.orderManagement.orderManagementApp.model.Order;
@@ -32,8 +33,8 @@ public class NewOrderService {
         }
         orderDescriptionDao.saveAll(orderDesc);
         return "order placed succesfully";
-
     }
+    //Calculates the total amount of an order.
     public float calculateTotal(OrderDataDto orderDataDto){
         float total=0;
         for (int i=0;i<orderDataDto.getItemId().length;i++){
@@ -47,7 +48,30 @@ public class NewOrderService {
     }
 
     public List<Order> getAllOrders() {
+
+//        List<OrderDataDto> fullData=new ArrayList<>();
+//        for (Order i : orderDao.findAll()){
+//            OrderDataDto orderDataDto=new OrderDataDto();
+//        }
+
         return orderDao.findAll();
 
+    }
+    public List<OrderDesc> getAllOrdersDetail() {
+        return orderDescriptionDao.findAll();
+
+    }
+    public BillDto getOrderDetail(int orderId) {
+//        return orderDescriptionDao.findByOrderId(orderId);
+        List<OrderDesc> descObj=orderDescriptionDao.findByOrderId(orderId);
+        Order orderObj=orderDao.findByOrderId(orderId);
+        List<Integer> itemId=new ArrayList<>();
+        List<Integer> quantity=new ArrayList<>();
+        for (OrderDesc orderDesc : descObj) {
+            itemId.add(orderDesc.getItemId());
+            quantity.add(orderDesc.getQuantity());
+        }
+        BillDto billDto = new BillDto(orderObj.getTableId(),orderObj.getOrderId(),orderObj.getOrderDate(),itemId,quantity,orderObj.getTotalAmount());
+        return billDto;
     }
 }

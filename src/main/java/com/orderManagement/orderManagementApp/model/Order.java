@@ -1,11 +1,13 @@
 package com.orderManagement.orderManagementApp.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
     private int tableId;
+    private Timestamp orderDate;
     private float totalAmount;
 
     public Order(int tableId,float totalAmount){

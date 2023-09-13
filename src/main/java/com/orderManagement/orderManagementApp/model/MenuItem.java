@@ -1,6 +1,7 @@
 package com.orderManagement.orderManagementApp.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
