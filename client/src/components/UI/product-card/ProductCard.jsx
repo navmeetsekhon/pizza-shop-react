@@ -1,5 +1,5 @@
 import React from "react";
-import product_04_image_01 from "/home/navmeet/Desktop/computer programs/React-food-delivery-app-main/src/assets/images/product_4.1.jpg";
+// import product_04_image_01 from "/home/navmeet/Desktop/computer programs/orderManagementApp/React-food-delivery-app-main/src/assets/images/product_4.1.jpg";
 import "../../../styles/product-card.css";
 
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ const ProductCard = (props) => {
       cartActions.addItem({
         itemId,
         itemName,
-        product_04_image_01,
+        image01,
         itemPrice,
       })
     );

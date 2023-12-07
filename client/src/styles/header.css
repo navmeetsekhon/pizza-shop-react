@@ -5,12 +5,15 @@
 }
 
 .logo {
-  text-align: center;
+  text-align: left; 
 }
 .logo img {
-  width: calc(100% - 60%);
+  opacity: 1;
+  width: calc(60% - 40%);
   object-fit: contain;
   margin-top: -40px;
+
+  background-color: transparent;
 }
 
 .logo h5 {

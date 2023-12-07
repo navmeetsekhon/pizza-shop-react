@@ -36,7 +36,7 @@ const cartSlice = createSlice({
     addItem(state, action) {
       const newItem = action.payload;
       const existingItem = state.cartItems.find(
-        (item) => item.id === newItem.id
+        (item) => item.id === newItem.itemId
       );
       state.totalQuantity++;
 
@@ -44,21 +44,21 @@ const cartSlice = createSlice({
         // ===== note: if you use just redux you should not mute state array instead of clone the state array, but if you use redux toolkit that will not a problem because redux toolkit clone the array behind the scene
 
         state.cartItems.push({
-          id: newItem.id,
-          title: newItem.title,
+          itemId: newItem.itemId,
+          itemName: newItem.itemName,
           image01: newItem.image01,
-          price: newItem.price,
+          itemPrice: newItem.itemPrice,
           quantity: 1,
-          totalPrice: newItem.price,
+          totalPrice: newItem.itemPrice,
         });
       } else {
         existingItem.quantity++;
         existingItem.totalPrice =
-          Number(existingItem.totalPrice) + Number(newItem.price);
+          Number(existingItem.totalPrice) + Number(newItem.itemPrice);
       }
 
       state.totalAmount = state.cartItems.reduce(
-        (total, item) => total + Number(item.price) * Number(item.quantity),
+        (total, item) => total + Number(item.itemPrice) * Number(item.quantity),
 
         0
       );

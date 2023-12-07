@@ -15,4 +15,5 @@ public class MenuItem {
     private float itemPrice;
     private String itemDescription;
     private String itemCategory;
+
 }

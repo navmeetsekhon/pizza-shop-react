@@ -23,16 +23,15 @@ public class NewOrderService {
     MenuDao menuDao;
     @Autowired
     OrderDescriptionDao orderDescriptionDao;
-    public String newOrder(OrderDataDto orderDataDto) {
+    public BillDto newOrder(OrderDataDto orderDataDto) {
         Order order = new Order(orderDataDto.getTableId(), calculateTotal(orderDataDto));
         orderDao.save(order);
         ArrayList<OrderDesc> orderDesc=new ArrayList<>();
-        //OrderDesc[] orderDesc=new OrderDesc[orderDataDto.getItemId().length];
         for (int i=0;i<orderDataDto.getItemId().length;i++){
             orderDesc.add(new OrderDesc(order.getOrderId(), orderDataDto.getItemId()[i], orderDataDto.getQuantity()[i]));
         }
         orderDescriptionDao.saveAll(orderDesc);
-        return "order placed succesfully";
+        return getOrderDetail(order.getOrderId());
     }
     //Calculates the total amount of an order.
     public float calculateTotal(OrderDataDto orderDataDto){
@@ -48,30 +47,23 @@ public class NewOrderService {
     }
 
     public List<Order> getAllOrders() {
-
-//        List<OrderDataDto> fullData=new ArrayList<>();
-//        for (Order i : orderDao.findAll()){
-//            OrderDataDto orderDataDto=new OrderDataDto();
-//        }
-
         return orderDao.findAll();
-
     }
     public List<OrderDesc> getAllOrdersDetail() {
         return orderDescriptionDao.findAll();
 
     }
     public BillDto getOrderDetail(int orderId) {
-//        return orderDescriptionDao.findByOrderId(orderId);
         List<OrderDesc> descObj=orderDescriptionDao.findByOrderId(orderId);
+        System.out.println("desc:"+descObj);
         Order orderObj=orderDao.findByOrderId(orderId);
-        List<Integer> itemId=new ArrayList<>();
+        System.out.println("o2:"+orderObj);
+        List<String> itemId=new ArrayList<>();
         List<Integer> quantity=new ArrayList<>();
         for (OrderDesc orderDesc : descObj) {
-            itemId.add(orderDesc.getItemId());
+            itemId.add(String.valueOf(menuDao.findById(orderDesc.getItemId())));
             quantity.add(orderDesc.getQuantity());
         }
-        BillDto billDto = new BillDto(orderObj.getTableId(),orderObj.getOrderId(),orderObj.getOrderDate(),itemId,quantity,orderObj.getTotalAmount());
-        return billDto;
+        return new BillDto(orderObj.getTableId(),orderObj.getOrderId(),orderObj.getOrderDate(),itemId,quantity,orderObj.getTotalAmount());
     }
 }

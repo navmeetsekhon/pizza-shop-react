@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 
 import "../../styles/header.css";
-
+const res_name="McDonald's"
 const nav__links = [
   {
     display: "Home",
@@ -61,7 +61,7 @@ const Header = () => {
         <div className="nav__wrapper d-flex align-items-center justify-content-between">
           <div className="logo">
             <img src={logo} alt="logo" />
-            <h5>Tasty Treat</h5>
+            <h5>{res_name}</h5>
           </div>
 
           {/* ======= menu ======= */}

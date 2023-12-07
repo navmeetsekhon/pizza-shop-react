@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping("newOrder")
-    public String placeOrder(@RequestBody OrderDataDto orderDataDto){
+    public BillDto placeOrder(@RequestBody OrderDataDto orderDataDto){
         return newOrderService.newOrder(orderDataDto);
     }
 }

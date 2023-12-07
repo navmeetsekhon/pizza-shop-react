@@ -14,11 +14,11 @@ public class BillDto {
     private Integer tableId;
     private Integer orderId;
     private Timestamp orderDate;
-    private List<Integer> items;
+    private List<String> items;
     private List<Integer> quantity;
     private Float subtotal;
 
-    public BillDto(Integer tableId, Integer orderId,Timestamp orderDate, List<Integer> items, List<Integer> quantity, Float subtotal) {
+    public BillDto(Integer tableId, Integer orderId,Timestamp orderDate, List<String> items, List<Integer> quantity, Float subtotal) {
         this.tableId = tableId;
         this.orderId = orderId;
         this.orderDate = orderDate;
