@@ -21,9 +21,50 @@ const updateCheckout = () => {
     totalAmount.innerHTML=total.toFixed(2);
   };
   
-  const display = () => {
-    var data = localStorage.getItem("cartList");
-    console.log(data);
-  };
-  
   document.addEventListener('DOMContentLoaded',updateCheckout);
+
+  const placeOrder=()=>{
+    var items=JSON.parse(localStorage.getItem('cartList'));
+    if (items === null) {
+      window.alert("your cart is empty")
+    }
+    else{
+      var itemIdList=[]
+      var itemQtyList=[]
+      for(var i=0;i<items.length;i++){
+        itemIdList.push(items[i].cartItemId);
+        itemQtyList.push(items[i].quantity);
+      }
+      var reqObj={
+        "tableId": 1,
+        "itemId": itemIdList,
+        "quantity": itemQtyList
+      }
+      sendOrder(reqObj);
+      console.log(reqObj);
+    }
+  } 
+  const sendOrder = async (reqObj) => {
+    const url='http://localhost:8080/order/newOrder'
+    const options={
+      method : "POST",
+      headers : {
+        'Content-Type' : 'application/json'
+      },
+      body : JSON.stringify(reqObj)
+    };
+
+    try {
+      const response = await fetch(url,options);
+      if (!response.ok) {
+        console.log(response);
+        throw new Error('HTTP error! status: ${response.status}')
+      }
+      const data = await response.json();
+      console.log("order placed\n"+data);
+      localStorage.clear();
+    }
+    catch{
+      console.error("error in placing order"+error);
+    }
+  }

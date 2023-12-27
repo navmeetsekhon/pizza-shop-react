@@ -11,7 +11,10 @@ import com.orderManagement.orderManagementApp.model.OrderDesc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +27,7 @@ public class NewOrderService {
     @Autowired
     OrderDescriptionDao orderDescriptionDao;
     public BillDto newOrder(OrderDataDto orderDataDto) {
+        String ts=getTimeStamp();
         Order order = new Order(orderDataDto.getTableId(), calculateTotal(orderDataDto));
         orderDao.save(order);
         ArrayList<OrderDesc> orderDesc=new ArrayList<>();
@@ -45,7 +49,16 @@ public class NewOrderService {
         }
         return total;
     }
+    public String getTimeStamp(){
+        Date currentDate = new Date();
 
+        // Convert the Date to Timestamp
+        Timestamp timestamp = new Timestamp(currentDate.getTime());
+
+        // Format the Timestamp to a string compatible with MySQL timestamp format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(timestamp);
+    }
     public List<Order> getAllOrders() {
         return orderDao.findAll();
     }
