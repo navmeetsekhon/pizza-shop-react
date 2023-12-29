@@ -5,8 +5,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -22,9 +20,9 @@ public class Order {
     private Timestamp orderDate;
     private float totalAmount;
 
-    public Order(int tableId,float totalAmount){
+    public Order(int tableId,Timestamp orderDate,float totalAmount){
         this.tableId=tableId;
-//        this.orderDate=orderDate;
+        this.orderDate=orderDate;
         this.totalAmount=totalAmount;
     }
 }
