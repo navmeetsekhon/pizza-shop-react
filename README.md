@@ -27,11 +27,11 @@
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Database Configuration](#database-configuration)
-- [Usage](#usage)
+<!-- - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
+- [Contributing](#contributing) -->
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
+<!-- - [Acknowledgments](#acknowledgments) -->
 
 ## Introduction
 
@@ -98,4 +98,7 @@ Follow the steps below to set up and run the McDonald's E-Menu backend on your l
 
     ```bash
     mvn spring-boot:run
+
+# License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
