@@ -1,11 +1,12 @@
 package com.orderManagement.orderManagementApp.dto;
 
-import lombok.AllArgsConstructor;
+// import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.List;
+import com.orderManagement.orderManagementApp.model.MenuItem;
 
 @Data
 //@AllArgsConstructor
@@ -14,11 +15,11 @@ public class BillDto {
     private Integer tableId;
     private Integer orderId;
     private Timestamp orderDate;
-    private List<String> items;
+    private List<MenuItem> items;
     private List<Integer> quantity;
     private Float subtotal;
 
-    public BillDto(Integer tableId, Integer orderId,Timestamp orderDate, List<String> items, List<Integer> quantity, Float subtotal) {
+    public BillDto(Integer tableId, Integer orderId,Timestamp orderDate, List<MenuItem> items, List<Integer> quantity, Float subtotal) {
         this.tableId = tableId;
         this.orderId = orderId;
         this.orderDate = orderDate;

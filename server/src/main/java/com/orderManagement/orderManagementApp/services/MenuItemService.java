@@ -28,7 +28,6 @@ public class MenuItemService {
     }
 
     public ResponseEntity<MenuItem> updateItem(long id, MenuItem menuItem) {
-
             MenuItem updateItem=menuDao.findByItemId((int)id);
             if (updateItem!=null){
                 updateItem.setItemName(menuItem.getItemName());
