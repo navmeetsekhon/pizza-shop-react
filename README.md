@@ -57,7 +57,7 @@ Before you begin, ensure you have the following installed:
 
 Follow the steps below to set up and run the McDonald's E-Menu backend on your local machine.
 
-### Installation
+## Installation
 
 1. Clone the repository:
 
@@ -74,7 +74,7 @@ Follow the steps below to set up and run the McDonald's E-Menu backend on your l
     ```bash
     mvn clean install
 
-# Database Configuration
+## Database Configuration
 
 1. Create a MySQL database for the project.
 
@@ -99,6 +99,6 @@ Follow the steps below to set up and run the McDonald's E-Menu backend on your l
     ```bash
     mvn spring-boot:run
 
-# License
+## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
