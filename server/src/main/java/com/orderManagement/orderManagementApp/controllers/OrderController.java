@@ -4,7 +4,7 @@ import com.orderManagement.orderManagementApp.dto.BillDto;
 import com.orderManagement.orderManagementApp.dto.OrderDataDto;
 import com.orderManagement.orderManagementApp.model.Order;
 import com.orderManagement.orderManagementApp.model.OrderDesc;
-import com.orderManagement.orderManagementApp.services.NewOrderService;
+import com.orderManagement.orderManagementApp.services.impl.NewOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

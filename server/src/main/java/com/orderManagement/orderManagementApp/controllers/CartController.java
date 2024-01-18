@@ -2,34 +2,45 @@ package com.orderManagement.orderManagementApp.controllers;
 
 import com.orderManagement.orderManagementApp.dto.CartRequest;
 import com.orderManagement.orderManagementApp.dto.CartResponse;
-import com.orderManagement.orderManagementApp.exception.ResourceNotFoundException;
 import com.orderManagement.orderManagementApp.services.CartService;
-import jakarta.annotation.Resource;
-import lombok.Getter;
+import com.orderManagement.orderManagementApp.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-//@RestController
-//@RequestMapping("cart")
-//public class CartController {
+@RestController
+@RequestMapping("userCart")
+public class CartController {
+
 //    @Autowired
-//    CartService cartService;
-////    @GetMapping
-////    public List<CartResponse> getAllCart(@RequestParam Integer tableId){
-////        try{
-////            return CartService.getUserCartDetails(tableId);
-////        }
-////        catch (ResourceNotFoundException e){
-////            System.out.println("cart is empty"+e);
-////            return Collections.emptyList();
-////        }
-////    }
-//    @PostMapping("/addToCart")
-//    public CartResponse addToCart(CartRequest request){
-//        return cartService.addCartItem(request);
-//    }
-//}
+    CartService cartService;
+    @GetMapping
+    public ApiResponse<List<CartResponse>> getAllCartItems(@RequestParam Integer userId){
+        return cartService.getAllCartItems(userId);
+    }
+    @PostMapping("/addToCart")
+    public ApiResponse<CartResponse> addToCart(CartRequest request){
+        return cartService.addToCart(request);
+    }
+
+    @PutMapping("/updateItemQty")
+    public ApiResponse<CartResponse> updateItemQty(CartRequest request){
+        return cartService.updateItemQty(request);
+    }
+
+    @DeleteMapping("/deleteItem")
+    public ApiResponse<CartResponse> deleteCartItem(CartRequest request){
+        return cartService.deleteItem(request);
+    }
+
+    @DeleteMapping("/clear")
+    public ApiResponse<String> clearCart(String userId){
+        return cartService.clearCart(userId);
+    }
+
+    @GetMapping("/calculateTotalValue")
+    public ApiResponse<Double> calculateCartValue(String userId){
+        return cartService.calculateCartValue(userId);
+    }
+}
