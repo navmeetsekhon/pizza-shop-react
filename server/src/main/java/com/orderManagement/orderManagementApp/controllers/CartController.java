@@ -1,46 +1,51 @@
 package com.orderManagement.orderManagementApp.controllers;
 
+import com.orderManagement.orderManagementApp.dto.CartItemQuantityUpdateRequest;
 import com.orderManagement.orderManagementApp.dto.CartRequest;
 import com.orderManagement.orderManagementApp.dto.CartResponse;
-import com.orderManagement.orderManagementApp.services.CartService;
+import com.orderManagement.orderManagementApp.services.impl.CartServiceImp;
 import com.orderManagement.orderManagementApp.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("userCart")
 public class CartController {
 
-//    @Autowired
-    CartService cartService;
+    @Autowired
+    CartServiceImp cartService;
     @GetMapping
-    public ApiResponse<List<CartResponse>> getAllCartItems(@RequestParam Integer userId){
+    public ApiResponse<CartResponse> getAllCartItems(@RequestParam String userId){
         return cartService.getAllCartItems(userId);
     }
     @PostMapping("/addToCart")
-    public ApiResponse<CartResponse> addToCart(CartRequest request){
+    public ApiResponse<CartResponse> addToCart(@RequestBody CartRequest request){
         return cartService.addToCart(request);
     }
 
-    @PutMapping("/updateItemQty")
-    public ApiResponse<CartResponse> updateItemQty(CartRequest request){
-        return cartService.updateItemQty(request);
+    @PutMapping("/increaseItemQty")
+    public ApiResponse<CartResponse> increaseQuantity(@RequestBody CartItemQuantityUpdateRequest request){
+        return cartService.increaseItemQuantity(request);
     }
 
+    @PutMapping("/decreaseItemQty")
+    public ApiResponse<CartResponse> decreaseQuantity(@RequestBody CartItemQuantityUpdateRequest request){
+        return cartService.decreaseItemQuantity(request);
+    }
+
+
     @DeleteMapping("/deleteItem")
-    public ApiResponse<CartResponse> deleteCartItem(CartRequest request){
+    public ApiResponse<CartResponse> deleteCartItem(@RequestBody CartItemQuantityUpdateRequest request){
         return cartService.deleteItem(request);
     }
 
     @DeleteMapping("/clear")
-    public ApiResponse<String> clearCart(String userId){
+    public ApiResponse<String> clearCart(@RequestParam String userId){
         return cartService.clearCart(userId);
     }
 
     @GetMapping("/calculateTotalValue")
-    public ApiResponse<Double> calculateCartValue(String userId){
+    public ApiResponse<Double> calculateCartValue(@RequestParam String userId){
         return cartService.calculateCartValue(userId);
     }
 }

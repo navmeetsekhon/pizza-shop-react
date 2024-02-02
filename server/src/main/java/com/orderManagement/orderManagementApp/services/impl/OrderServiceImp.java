@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class NewOrderService {
+public class OrderServiceImp {
     @Autowired
     OrderDao orderDao;
     @Autowired
@@ -44,8 +44,8 @@ public class NewOrderService {
         return getOrderDetail(order.getOrderId());
     }
     //Calculates the total amount of an order.
-    public float calculateTotal(OrderDataDto orderDataDto){
-        float total=0;
+    public Double calculateTotal(OrderDataDto orderDataDto){
+        Double total = 0.0;
         for (int i=0;i<orderDataDto.getItemId().length;i++){
             Optional<MenuItem> menuItemOptional =menuDao.findById(orderDataDto.getItemId()[i]);
             if (menuItemOptional.isPresent()) {

@@ -13,7 +13,7 @@ import java.util.Map;
 public class MenuItemResponse {
     private int itemId;
     private String itemName;
-    private float itemPrice;
+    private Double itemPrice;
     private String itemDescription;
     private String itemCategory;
 

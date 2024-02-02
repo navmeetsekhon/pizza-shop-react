@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class MenuItemRequest {
     private String itemName;
-    private float itemPrice;
+    private Double itemPrice;
     private String itemDescription;
     private String itemCategory;
 }

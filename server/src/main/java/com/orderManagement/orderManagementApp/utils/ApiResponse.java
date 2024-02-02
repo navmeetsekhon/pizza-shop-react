@@ -16,9 +16,9 @@ public class ApiResponse<T> {
         this.code = code;
         this.data = data;
     }
-    public ApiResponse(int code,String errorCode){
+    public ApiResponse(int code,String message){
         this.code = code;
-        this.errorCode = errorCode;
+        this.message = message;
     }
     public ApiResponse(int code , T data , String message , String errorCode){
         this.code = code;
@@ -32,6 +32,7 @@ public class ApiResponse<T> {
         this.message = message;
         this.errorCode = errorCode;
     }
+
 
 
     public int getCode() {

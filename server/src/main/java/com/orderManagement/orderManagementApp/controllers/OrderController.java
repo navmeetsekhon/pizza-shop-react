@@ -4,7 +4,7 @@ import com.orderManagement.orderManagementApp.dto.BillDto;
 import com.orderManagement.orderManagementApp.dto.OrderDataDto;
 import com.orderManagement.orderManagementApp.model.Order;
 import com.orderManagement.orderManagementApp.model.OrderDesc;
-import com.orderManagement.orderManagementApp.services.impl.NewOrderService;
+import com.orderManagement.orderManagementApp.services.impl.OrderServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,22 +15,22 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    NewOrderService newOrderService;
+    OrderServiceImp orderServiceImp;
     @GetMapping("/allOrders")
     public List<Order> getAllOrders(){
-        return newOrderService.getAllOrders();
+        return orderServiceImp.getAllOrders();
     }
     @GetMapping("/allDetails")
     public List<OrderDesc> getAllOrdersDesc(){
-        return newOrderService.getAllOrdersDetail();
+        return orderServiceImp.getAllOrdersDetail();
     }
     @GetMapping("details/{orderId}")
     public BillDto getOrdersDesc(@PathVariable int orderId){
-        return newOrderService.getOrderDetail(orderId);
+        return orderServiceImp.getOrderDetail(orderId);
     }
 
     @PostMapping("newOrder")
     public BillDto placeOrder(@RequestBody OrderDataDto orderDataDto){
-        return newOrderService.newOrder(orderDataDto);
+        return orderServiceImp.newOrder(orderDataDto);
     }
 }

@@ -18,9 +18,9 @@ public class Order {
     private int orderId;
     private int tableId;
     private Timestamp orderDate;
-    private float totalAmount;
+    private Double totalAmount;
 
-    public Order(int tableId,Timestamp orderDate,float totalAmount){
+    public Order(int tableId,Timestamp orderDate,Double totalAmount){
         this.tableId=tableId;
         this.orderDate=orderDate;
         this.totalAmount=totalAmount;

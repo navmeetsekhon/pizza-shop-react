@@ -17,9 +17,9 @@ public class BillDto {
     private Timestamp orderDate;
     private List<MenuItem> items;
     private List<Integer> quantity;
-    private Float subtotal;
+    private Double subtotal;
 
-    public BillDto(Integer tableId, Integer orderId,Timestamp orderDate, List<MenuItem> items, List<Integer> quantity, Float subtotal) {
+    public BillDto(Integer tableId, Integer orderId,Timestamp orderDate, List<MenuItem> items, List<Integer> quantity, Double subtotal) {
         this.tableId = tableId;
         this.orderId = orderId;
         this.orderDate = orderDate;
