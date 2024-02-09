@@ -14,4 +14,6 @@ public interface MenuService {
     ApiResponse<List<MenuItemResponse>> getItemByCategory(String category);
     ApiResponse<ErrorMap> addMenuItem(MenuItemRequest menuItemRequest);
     ApiResponse<ErrorMap> updateItem(long id, MenuItemRequest menuItemRequest);
+
+    ApiResponse<ErrorMap> addMultipleItems(List<MenuItemRequest> menuItemRequestListList);
 }

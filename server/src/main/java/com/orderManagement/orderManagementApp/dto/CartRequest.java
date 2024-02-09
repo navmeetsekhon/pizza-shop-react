@@ -9,8 +9,8 @@ import lombok.*;
 @Setter
 public class CartRequest {
     private String userId;
-    private int itemId;
-    private int quantity;
+    private Integer itemId;
+    private Integer quantity;
     private String operation;
 
     @Override

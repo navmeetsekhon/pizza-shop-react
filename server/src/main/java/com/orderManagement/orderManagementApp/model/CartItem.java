@@ -21,5 +21,5 @@ public class CartItem {
     @Column(name = "item_id")
     private int itemId;
     @Column(name = "quantity")
-    private double quantity;
+    private Integer quantity;
 }

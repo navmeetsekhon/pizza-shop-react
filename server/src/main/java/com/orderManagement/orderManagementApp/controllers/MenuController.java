@@ -36,6 +36,11 @@ public class MenuController {
         return menuServiceImp.addMenuItem(menuItemRequest);
     }
 
+    @PostMapping("addBulk")
+    public ApiResponse<ErrorMap> addItem(@RequestBody List<MenuItemRequest> menuItemRequest) {
+        return menuServiceImp.addMultipleItems(menuItemRequest);
+    }
+
     @PutMapping("update")
     public ApiResponse<ErrorMap> updateMenuItem(@RequestParam long id, @RequestBody MenuItemRequest menuItemRequest) {
         return menuServiceImp.updateItem(id, menuItemRequest);

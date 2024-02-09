@@ -85,6 +85,25 @@ public class MenuServiceImp implements MenuService {
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), "INTERNAL_SERVER_ERROR");
         }
     }
+    @Override
+    public ApiResponse<ErrorMap> addMultipleItems(List<MenuItemRequest> menuItemRequestListList) {
+        try {
+            List<MenuItem> menuItemList = new ArrayList<MenuItem>();
+            for(MenuItemRequest m : menuItemRequestListList){
+                ErrorMap errorMap = new ErrorMap();
+                if (isValidItemDetailsCheck(m, errorMap)) {
+                    MenuItem item = new MenuItem(m);
+                    menuItemList.add(item);
+                } else {
+                    return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+                }
+            }
+            menuDao.saveAll(menuItemList);
+            return new ApiResponse<>(HttpStatus.OK.value());
+        } catch (Exception e) {
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), "INTERNAL_SERVER_ERROR");
+        }
+    }
 
     public boolean isValidItemDetailsCheck(MenuItemRequest menuItem, ErrorMap errorMap) {
         boolean res = false;

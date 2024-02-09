@@ -11,18 +11,16 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="orders")
+@Table(name="orders_table")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
-    private int tableId;
+    private String orderId;
+    @Column(name = "user_id")
+    private String userId;
+    @Column(name = "order_timestamp")
     private Timestamp orderDate;
-    private Double totalAmount;
-
-    public Order(int tableId,Timestamp orderDate,Double totalAmount){
-        this.tableId=tableId;
-        this.orderDate=orderDate;
-        this.totalAmount=totalAmount;
-    }
+    @Column(name = "order_total_amount")
+    private Double orderTotalAmount;
+    @Column(name = "order_status")
+    private Boolean orderStatus;
 }

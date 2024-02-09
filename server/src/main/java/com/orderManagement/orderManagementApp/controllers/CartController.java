@@ -1,8 +1,6 @@
 package com.orderManagement.orderManagementApp.controllers;
 
-import com.orderManagement.orderManagementApp.dto.CartItemQuantityUpdateRequest;
-import com.orderManagement.orderManagementApp.dto.CartRequest;
-import com.orderManagement.orderManagementApp.dto.CartResponse;
+import com.orderManagement.orderManagementApp.dto.*;
 import com.orderManagement.orderManagementApp.services.impl.CartServiceImp;
 import com.orderManagement.orderManagementApp.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +45,9 @@ public class CartController {
     @GetMapping("/calculateTotalValue")
     public ApiResponse<Double> calculateCartValue(@RequestParam String userId){
         return cartService.calculateCartValue(userId);
+    }
+    @PostMapping("/placeOrder")
+    public ApiResponse<BillDto> addToCart(@RequestBody IdRequest request){
+        return cartService.placeOrder(request);
     }
 }

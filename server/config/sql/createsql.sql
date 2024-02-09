@@ -10,12 +10,12 @@ CREATE TABLE restraunt_table (
     table_number INT NOT NULL,
     table_status ENUM('vacant','occupied') DEFAULT 'vacant'
 );
-CREATE TABLE Orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    table_id INT,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (table_id) REFERENCES restraunt_table(table_id)
+CREATE TABLE orders_table (
+    `order_id` VARCHAR(100) NOT NULL,
+    `user_id` VARCHAR(100) NOT NULL,
+    `order_timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `order_total_amount` DOUBLE NOT NULL,
+    PRIMARY KEY (`order_id`)
 );
 
 CREATE TABLE OrderedItems (

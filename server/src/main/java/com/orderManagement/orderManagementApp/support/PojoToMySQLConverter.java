@@ -1,5 +1,7 @@
 package com.orderManagement.orderManagementApp.support;
 
+import com.orderManagement.orderManagementApp.model.Order;
+import com.orderManagement.orderManagementApp.model.OrderItems;
 import com.orderManagement.orderManagementApp.model.UserCart;
 import org.hibernate.mapping.Column;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -104,7 +106,7 @@ public class PojoToMySQLConverter {
             private boolean isActive;
         }
 
-        String createStatement = convertToCreateStatement(UserCart.class, "shopping_cart");
+        String createStatement = convertToCreateStatement(Order.class, "order_items_table");
         System.out.println(createStatement);
     }
 }

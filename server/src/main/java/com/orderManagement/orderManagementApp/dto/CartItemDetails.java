@@ -12,7 +12,7 @@ public class CartItemDetails {
     private int itemId;
     private String itemName;
     private Double itemPrice;
-    private double quantity;
+    private Integer quantity;
 
     public CartItemDetails(CartItem cartItem,String itemName,Double itemPrice) {
         this.itemId = cartItem.getItemId();
