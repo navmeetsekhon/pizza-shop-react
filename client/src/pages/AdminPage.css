@@ -1,0 +1,50 @@
+.admin-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+h2 {
+    text-align: center;
+}
+.order-list {
+    list-style-type: none;
+    padding: 0;
+}
+.order-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.order-status {
+    font-weight: bold;
+    color: #ff6600; /* Orange color for pending orders */
+}
+.completed {
+    color: #009900; /* Green color for completed orders */
+}
+.btn-mark-completed {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
