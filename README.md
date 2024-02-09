@@ -1,4 +1,4 @@
-<!-- # order-management-system
+<!-- # pizza-shop
 
 ## intitial setup
 
@@ -12,11 +12,11 @@
 ### Post Steps
 
 - run createsql.sql in mysql
-- Run orderManagementAppApplication -->
+- Run pizzaShopApplication -->
 
-# McDonald's E-Menu Digital Ordering System (Backend)
+# Pizza Shop Digital Ordering System (Backend)
 
-![Build Status](https://travis-ci.org/your-username/mcdonalds-clone-backend.svg?branch=main)
+![Build Status](https://travis-ci.org/your-username/pizza-shop-backend.svg?branch=main)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Table of Contents
@@ -35,7 +35,7 @@
 
 ## Introduction
 
-Welcome to the backend of the McDonald's E-Menu Digital Ordering System! This project is a clone of the digital ordering system used by McDonald's, built using Spring Boot, Maven, and MySQL. The backend handles the business logic, database interactions, and provides a RESTful API for the frontend.
+Welcome to the backend of the Pizza Shop Digital Ordering System! This project is a digital ordering system for a pizza shop, built using Spring Boot, Maven, and MySQL. The backend handles the business logic, database interactions, and provides a RESTful API for the frontend.
 
 ## Features
 
@@ -55,19 +55,19 @@ Before you begin, ensure you have the following installed:
 
 ## Getting Started
 
-Follow the steps below to set up and run the McDonald's E-Menu backend on your local machine.
+Follow the steps below to set up and run the Pizza Shop backend on your local machine.
 
 ## Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/mcdonalds-clone-backend.git
+   git clone https://github.com/your-username/pizza-shop-backend.git
 
 2. Navigate to the project directory:
 
     ```bash
-    cd mcdonalds-clone-backend
+    cd pizza-shop-backend
 
 3. Build the application:
 
@@ -79,12 +79,12 @@ Follow the steps below to set up and run the McDonald's E-Menu backend on your l
 1. Create a MySQL database for the project.
 
     ```sql
-    CREATE DATABASE orderingSystem;
+    CREATE DATABASE pizzaShop;
 
 2. Update the application.properties file with your database connection details:
 
     ```properties
-    spring.datasource.url=jdbc:mysql://localhost:3306/orderingSystem
+    spring.datasource.url=jdbc:mysql://localhost:3306/pizzaShop
     spring.datasource.username=your_username
     spring.datasource.password=your_password
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -92,13 +92,16 @@ Follow the steps below to set up and run the McDonald's E-Menu backend on your l
 3. Run the SQL script to create the database schema:
 
     ```bash
-    mysql -u root -p orderingSystem < config/sql/createsql.sql
+    mysql -u root -p pizzaShop < config/sql/createsql.sql
 
 4. Run the application:
 
     ```bash
     mvn spring-boot:run
+    or 
+    mvn clean install
+    cd target
+    java -jar orderManagementApp-0.0.1-SNAPSHOT.jar
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
