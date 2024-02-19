@@ -24,11 +24,14 @@ function AdminPage() {
             }}`
           );
         }
-        setAllOrders(data.data);
-        console.log(data.data);
-        setPendingOrders(
-          data.data.filter((item) => item.orderStatus === false)
-        );
+        const sortedAllOrders = data.data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+        
+        // Filter and sort pending orders
+        const sortedPendingOrders = sortedAllOrders.filter(order => !order.orderStatus)
+                                                  .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+        
+        setAllOrders(sortedAllOrders);
+        setPendingOrders(sortedPendingOrders);
       } catch (e) {
         console.error(e);
       }
@@ -77,15 +80,27 @@ function AdminPage() {
         <table className="order-table">
           <thead>
             <tr>
+              <th>Serial No.</th>
               <th>Order Date</th>
               <th>Total Amount</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {pendingOrders.map((order) => (
+            {pendingOrders.map((order, index) => (
               <tr key={order.orderId}>
+                <td>{index + 1}</td>
                 <td>{order.orderDate.substring(0,10)}</td>
                 <td>${order.orderTotalAmount.toFixed(2)}</td>
+                <td>
+                  <button
+                    className="btn"
+                    onClick={() => markAsCompleted(order.orderId)}
+                    disabled={order.orderStatus}
+                  >
+                    Mark as Completed
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -96,27 +111,19 @@ function AdminPage() {
         <table className="order-table">
           <thead>
             <tr>
+              <th>Serial No.</th>
               <th>Order Date</th>
               <th>Total Amount</th>
               <th>Status</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {allOrders.map((order) => (
+            {allOrders.map((order, index) => (
               <tr key={order.orderId}>
+                <td>{index + 1}</td>
                 <td>{order.orderDate.substring(0, 10)}</td>
                 <td>${order.orderTotalAmount.toFixed(2)}</td>
                 <td>{order.orderStatus ? "Completed" : "Pending"}</td>
-                <td>
-                  <button
-                    className="btn"
-                    onClick={() => markAsCompleted(order.orderId)}
-                    disabled={order.orderStatus}
-                  >
-                    Mark as Completed
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>

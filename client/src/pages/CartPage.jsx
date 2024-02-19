@@ -4,9 +4,8 @@ import "../styles/Cart.css";
 // import items from "../helper/CartData.json";
 import Api from "../helper/Api.json";
 
-function CartPage() {
-  const userId = "1";
-  // const cartId;
+function CartPage({user}) {
+  const userId = user.userId;
   const uriPrefix = Api.prefix;
 
   // cartData will store the state of current user's cart.

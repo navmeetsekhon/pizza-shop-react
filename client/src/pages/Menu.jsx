@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from "../components/MenuItem";
 import "../styles/Menu.css";
-function Menu() {
+function Menu({user}) {
 
   const [menuItems, setMenuItems] = useState([]);
 
@@ -30,7 +30,7 @@ function Menu() {
           return (
             <MenuItem
               key={key}
-              userId={1} 
+              userId={user.userId} 
               itemId={item.itemId}
               itemName={item.itemName}
               itemPrice={item.itemPrice}

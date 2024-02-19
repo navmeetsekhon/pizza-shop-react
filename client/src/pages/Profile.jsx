@@ -3,12 +3,12 @@ import "../styles/Profile.css";
 import ProfilePhoto from "../assets/sample-profile.png";
 import Api from "../helper/Api.json";
 
-function Profile(userId) {
+function Profile({user}) {
   const ApiPrefix = Api.prefix;
   const [pendingOrders, setPendingOrders] = useState([]);
   const [allOrders, setAllOrders] = useState([]);
 
-  userId = "1";
+  const userId = user.userId;
 
   useEffect(() => {
     const fetchAllOrders = async (userId) => {
@@ -31,11 +31,14 @@ function Profile(userId) {
             `Server error! status: ${data.code} , ${data.message} , ${data.errorCode}`
           );
         }
-        setAllOrders(data.data);
-        console.log(data.data);
-        setPendingOrders(
-          data.data.filter((item) => item.orderStatus === false)
-        );
+        const sortedAllOrders = data.data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+        
+        // Filter and sort pending orders
+        const sortedPendingOrders = sortedAllOrders.filter(order => !order.orderStatus)
+                                                  .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+        
+        setAllOrders(sortedAllOrders);
+        setPendingOrders(sortedPendingOrders);
       } catch (e) {
         console.error(e);
       }
@@ -48,8 +51,8 @@ function Profile(userId) {
         <h2 className="section-header">User Details</h2>
 
         <img className="profile-photo" src={ProfilePhoto} alt="User"></img>
-        <p>Name: John Doe</p>
-        <p>Email: john@example.com</p>
+        <p>Name: {user.name}</p>
+        <p>Email: {user.email}</p>
       </div>
       <div className="section">
         <h2 className="section-header">Pending Orders</h2>
