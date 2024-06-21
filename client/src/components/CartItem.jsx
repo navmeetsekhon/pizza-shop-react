@@ -1,6 +1,14 @@
 import React from "react";
 import "../styles/CartItem.css";
-import ProductImage from "../assets/product.png";
+import ProductImage from '../assets/product.png'
+import vegPizza from "../assets/veg-pizza.png";
+import nonVegPizza from "../assets/non-veg-pizza.png";
+import appetizer from "../assets/appetizer.png";
+import drink from "../assets/drink.png";
+import soup from "../assets/soup.png";
+import salad from "../assets/salad.png";
+
+
 function CartItem({
   userId,
   itemId,
@@ -8,10 +16,19 @@ function CartItem({
   price,
   quantity,
   amount,
+  itemCategory,
   increaseQty,
   decreaseQty,
   remove,
-}) {
+}){    
+  const images = {
+      "veg-pizza": vegPizza,
+      "non-veg-pizza": nonVegPizza,
+      "appetizer": appetizer,
+      "drink": drink,
+      "soup":soup,
+      "salad": salad
+    }
   return (
     <div className="cart-item">
       <div className="cart-item-image-box">
@@ -30,7 +47,7 @@ function CartItem({
         </div>
       </div>
       <div className="cart-item-prices">
-        <div className="cart-item-amount">{price}</div>
+        <div className="cart-item-amount">{price.toFixed(2)}</div>
         <div
           className="cart-item-remove"
           onClick={() => remove(userId, itemId)}

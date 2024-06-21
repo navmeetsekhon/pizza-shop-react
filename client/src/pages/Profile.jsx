@@ -4,6 +4,7 @@ import ProfilePhoto from "../assets/sample-profile.png";
 import Api from "../helper/Api.json";
 
 function Profile({user}) {
+  // const user = localStorage.getItem("user");
   const ApiPrefix = Api.prefix;
   const [pendingOrders, setPendingOrders] = useState([]);
   const [allOrders, setAllOrders] = useState([]);

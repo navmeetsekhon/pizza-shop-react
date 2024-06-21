@@ -7,7 +7,7 @@ import drink from "../assets/drink.png";
 import soup from "../assets/soup.png";
 import salad from "../assets/salad.png";
 
-function MenuItem({ userId, itemId, itemName, itemPrice, itemCategory }) {
+function MenuItem({ userId, itemId, itemName, itemPrice, itemCategory, incrementCartCount }) {
   const images = {
     "veg-pizza": vegPizza,
     "non-veg-pizza": nonVegPizza,
@@ -35,6 +35,7 @@ function MenuItem({ userId, itemId, itemName, itemPrice, itemCategory }) {
       if (!response.ok) {
         throw new Error();
       }
+      incrementCartCount();
     } catch (error) {
       console.error(error);
     }

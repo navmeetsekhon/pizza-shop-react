@@ -1,53 +1,55 @@
-import React, { useState, useEffect } from "react";
-import Api from "../helper/Api.json";
+import React, { useEffect,useState } from "react";
 import "../styles/AdminPage.css";
+import Dashboard from "../components/Admin/Dashboard";
+import Orders from "../components/Admin/Orders";
+import AdminMenu from "../components/Admin/AdminMenu";
+import DashboardSidebar from "../components/Admin/DashboardSidebar";
+import Api from "../helper/Api.json";
+import axios from "axios";
+const ApiPrefix = Api.prefix;
+const user = {
+  userId:1,
+  name: "john doe",
+  email: "johndoe@example.com"
+};
 
-function AdminPage() {
-  const ApiPrefix = Api.prefix;
-  const [pendingOrders, setPendingOrders] = useState([]);
-  const [allOrders, setAllOrders] = useState([]);
+const getCompletedOrders = (data) => {
+  return data.filter(order => order.orderStatus === true);
+};
+const calculateTotalSale = (data) => {
+  return data.reduce((total, order) => {
+    if (order.orderStatus) {
+      return total + order.orderTotalAmount;
+    }
+    return total;
+  }, 0);
+};
+const getCancelledOrders = (data) => {
+  return data.filter(order => order.orderStatus === false);
+};
+function AdminPage({ handleLogout }) {
 
-  useEffect(() => {
-    const fetchAllOrders = async () => {
-      try {
-        const response = await fetch(ApiPrefix + "/order/allOrders");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data.code !== 200) {
-          throw new Error(
-            `Server error! status: ${{
-              HttpCode: data.code,
-              message: data.message,
-              errorCode: data.errorCode,
-            }}`
-          );
-        }
-        const sortedAllOrders = data.data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
-        
-        // Filter and sort pending orders
-        const sortedPendingOrders = sortedAllOrders.filter(order => !order.orderStatus)
-                                                  .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
-        
-        setAllOrders(sortedAllOrders);
-        setPendingOrders(sortedPendingOrders);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchAllOrders();
-  }, [ApiPrefix]);
 
-  const markAsCompleted = async (curOrderId) => {
+  const [pendingOrders,setPendingOrders] = useState([]);
+  const [allOrders,setAllOrders] = useState([]);
+  const [totalSale,setTotalSale] = useState(0);
+  const [completedOrders,setCompletedOrdes] = useState([]);
+  const [cancelledOrders,setCancelledOrders] = useState([]);
+  const [page, setPage] = useState("dashboard");
+
+  const [menu,setMenu] = useState([]);
+
+
+useEffect(() => {
+  const fetchAllOrders = async (userId) => {
     try {
-      const response = await fetch(ApiPrefix + "/order/markAsCompleted", {
+      const response = await fetch(ApiPrefix + "/order/getAllUserOrders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: curOrderId,
+          id: userId,
         }),
       });
       if (!response.ok) {
@@ -58,76 +60,94 @@ function AdminPage() {
         throw new Error(
           `Server error! status: ${data.code} , ${data.message} , ${data.errorCode}`
         );
-      } else {
-        const updatedOrders = allOrders.map((order) => {
-          if (order.orderId === curOrderId) {
-            return { ...order, orderStatus: true }; // Mark as completed
-          }
-          return order;
-        });
-        setAllOrders(updatedOrders);
-        setPendingOrders(pendingOrders.filter((order) => order.orderId !== curOrderId));
-        console.log("order marked completed.");
       }
-    } catch (error) {}
+      const sortedAllOrders = data.data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+      
+      const sortedPendingOrders = sortedAllOrders.filter(order => !order.orderStatus)
+                                                .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+      
+      
+      const totalSaleAmount = calculateTotalSale(data.data);  
+      const cancelledOrders = getCancelledOrders(data.data);
+      const completedOrders = getCompletedOrders(data.data);
+      setAllOrders(sortedAllOrders);
+      setPendingOrders(sortedPendingOrders);
+      setTotalSale(totalSaleAmount);
+      setCancelledOrders(cancelledOrders);                  
+      setCompletedOrdes(completedOrders);                   
+    } catch (e) {
+      console.error(e);
+    }
   };
+  fetchAllOrders(user.userId);
+  const fetchMenu = async ()=>{
+    try{
+      const response = await axios.get(ApiPrefix+"/menu");
+      setMenu(response.data.data);
+    }
+    catch(error){
+      console.error(error);
+    }
+  }
+  fetchMenu();
+}, []);
+
+const markAsCompleted = async (curOrderId) => {
+  try {
+    const response = await fetch(ApiPrefix + "/order/markAsCompleted", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: curOrderId,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    if (data.code !== 200) {
+      throw new Error(
+        `Server error! status: ${data.code} , ${data.message} , ${data.errorCode}`
+      );
+    } else {
+      const updatedOrders = allOrders.map((order) => {
+        if (order.orderId === curOrderId) {
+          return { ...order, orderStatus: true }; // Mark as completed
+        }
+        return order;
+      });
+      setAllOrders(updatedOrders);
+      setPendingOrders(pendingOrders.filter((order) => order.orderId !== curOrderId));
+      console.log("order marked completed.");
+    }
+  } catch (error) {}
+};
+const renderPage = () => {
+  switch (page) {
+    case "dashboard":
+      return <Dashboard allOrders = {allOrders} pendingOrders = {pendingOrders} totalSale = {totalSale} cancelledOrders = {cancelledOrders}/>;
+    case "orders":
+      // return <Orders/>
+      return <Orders allOrders = {allOrders} pendingOrders = {pendingOrders} cancelledOrders = {cancelledOrders} completedOrders = {completedOrders} markAsCompleted = {markAsCompleted}/>;
+    case "menu":
+      return <AdminMenu menu = {menu} />;
+    default:
+      return <Dashboard />;
+  }
+};
 
   return (
-    <div className="container">
-      <h1>Admin Orders Page</h1>
-      <div>
-        <h2>Pending Orders</h2>
-        <table className="order-table">
-          <thead>
-            <tr>
-              <th>Serial No.</th>
-              <th>Order Date</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pendingOrders.map((order, index) => (
-              <tr key={order.orderId}>
-                <td>{index + 1}</td>
-                <td>{order.orderDate.substring(0,10)}</td>
-                <td>${order.orderTotalAmount.toFixed(2)}</td>
-                <td>
-                  <button
-                    className="btn"
-                    onClick={() => markAsCompleted(order.orderId)}
-                    disabled={order.orderStatus}
-                  >
-                    Mark as Completed
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>All Orders</h2>
-        <table className="order-table">
-          <thead>
-            <tr>
-              <th>Serial No.</th>
-              <th>Order Date</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allOrders.map((order, index) => (
-              <tr key={order.orderId}>
-                <td>{index + 1}</td>
-                <td>{order.orderDate.substring(0, 10)}</td>
-                <td>${order.orderTotalAmount.toFixed(2)}</td>
-                <td>{order.orderStatus ? "Completed" : "Pending"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="d-flex" id="wrapper">
+      <DashboardSidebar setPage={setPage} />
+      <div id="page-content-wrapper" className="p-4">
+        {renderPage()}
+        <div className="logout-button-container">
+          <button className="btn btn-danger mt-3" onClick={handleLogout}>
+            Log Out
+          </button>
+        </div>
       </div>
     </div>
   );

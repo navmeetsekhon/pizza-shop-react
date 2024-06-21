@@ -55,13 +55,12 @@
     border-radius: 40px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 700;
+    transition: 0.3s ease;
 }
 
 .add-to-cart-button:hover {
-    background-color: #000000;
-}
-
-.product-card:hover {
-    background-color: antiquewhite;
+    background-color: #9d0000;
     cursor: pointer;
 }
+

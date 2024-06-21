@@ -16,6 +16,7 @@
     margin: 0;
     list-style-type: none;
     display: flex;
+    position: relative;
 }
 
 .nav li {
@@ -44,5 +45,18 @@
 .nav ul li a:hover {
     font-size: 15px;
     font-weight: 700;
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
 }
+
+.cart-counters {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.6em;
+    font-size: 0.8em;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transform: translate(50%, -50%);
+  }
+  

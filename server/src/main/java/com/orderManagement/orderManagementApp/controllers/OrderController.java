@@ -15,9 +15,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-
+    
+    // Dependency injection.
     @Autowired
     OrderServiceImp orderServiceImp;
+
     @GetMapping("/allOrders")
     public ApiResponse<List<Order>> getAllOrders(){
         return orderServiceImp.getAllOrders();

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from "../components/MenuItem";
 import "../styles/Menu.css";
-function Menu({user}) {
 
+function Menu({user, incrementCartCount}) {
+  // const user = localStorage.getItem(user);
+ 
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
@@ -33,8 +35,10 @@ function Menu({user}) {
               userId={user.userId} 
               itemId={item.itemId}
               itemName={item.itemName}
-              itemPrice={item.itemPrice}
+              itemPrice={(item.itemPrice).toFixed(2)}
               itemCategory={item.itemCategory}
+              incrementCartCount={incrementCartCount} 
+
             />
           );
         })}

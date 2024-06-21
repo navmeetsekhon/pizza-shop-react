@@ -35,3 +35,17 @@ h1, h2 {
 .btn:hover {
     background-color: #45a049;
 }
+/* AdminPage.css */
+
+.logout-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
